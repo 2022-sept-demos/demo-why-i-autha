@@ -17,8 +17,6 @@ const redirectUrl = params.get('redirectUrl') || '../';
 const user = getUser();
 //      - replace location with redirectUrl
 
-console.log(user);
-
 // Sign up options
 const signUpType = {
     header: 'Create a new account',
@@ -81,6 +79,8 @@ authForm.addEventListener('submit', async (e) => {
     // get formData object from form
     const formData = new FormData(authForm);
 
+    // const response = await authType.action(formData.get('email'), formData.get('password'));
+
     let response = null;
 
     if (authType === signInType) {
@@ -88,8 +88,6 @@ authForm.addEventListener('submit', async (e) => {
     } else {
         response = await signUpUser(formData.get('email'), formData.get('password'));
     }
-
-    // await authType.action(formData.get('email'), formData.get('password'));
 
     const error = response.error;
 
@@ -99,9 +97,8 @@ authForm.addEventListener('submit', async (e) => {
         authButton.disabled = false;
         authButton.textContent = buttonText;
     } else {
-        console.log(response);
         // go back to wherever user came from
         // > Part A using "location", replace url with "redirectUrl"
-        location.replace('../');
+        location.replace(redirectUrl);
     }
 });
